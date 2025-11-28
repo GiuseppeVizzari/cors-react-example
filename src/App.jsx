@@ -7,7 +7,8 @@ export default function App() {
     const [proxyCallError, setProxyCallError] = useState(null);
 
     useEffect(() => {
-        // NewsAPI
+        // Direct NewsAPI call - will FAIL on GitHub Pages (HTTP 426 error)
+        // This demonstrates NewsAPI's localhost-only restriction on free tier
         const url = new URL(
             "https://newsapi.org/v2/top-headlines"
         );
@@ -15,7 +16,7 @@ export default function App() {
         url.searchParams.set("apiKey", API_KEY);
         url.searchParams.set("country", "us");
 
-        console.log(url);
+        console.log("Direct call:", url.toString());
 
         fetch(url.toString())
             .then((res) => {
@@ -28,6 +29,7 @@ export default function App() {
                 setDirectCallError(err.message);
             });
 
+        // Cloudflare Worker proxy call - should work on GitHub Pages
         const proxyUrl = new URL(
             "https://soft-cake-cb40.giuseppe-vizzari.workers.dev/"
         );
@@ -36,7 +38,7 @@ export default function App() {
         proxyUrl.searchParams.set("country", "us");
         proxyUrl.searchParams.set("apiKey", API_KEY);
 
-        console.log(proxyUrl);
+        console.log("Proxy call:", proxyUrl.toString());
 
         fetch(proxyUrl.toString())
             .then((res) => {
@@ -53,22 +55,22 @@ export default function App() {
 
     return (
         <div style={{ padding: "2rem" }}>
-            <h1>NYT Article Search Demo</h1>
+            <h1>NewsAPI CORS Demo</h1>
             {directCallError && (
                 <pre style={{ color: "red" }}>
-                    ❌ CORS error in direct call: {directCallError}
+                    ❌ Direct call error: {directCallError}
                 </pre>)}
             {proxyCallError && (
                 <pre style={{ color: "red" }}>
-                    ❌ CORS error in proxy call: {directCallError}
+                    ❌ Proxy call error: {proxyCallError}
                 </pre>)}
             {!directCallError && (
-                <pre style={{ color: "red" }}>
-                    Data gathered through the direct call!
+                <pre style={{ color: "green" }}>
+                    ✅ Data gathered through the direct call!
                 </pre>)}
             {!proxyCallError && (
-                <pre style={{ color: "red" }}>
-                    Data gathered through the proxy call!
+                <pre style={{ color: "green" }}>
+                    ✅ Data gathered through the proxy call!
                 </pre>)}
             <h2>Top Headlines</h2>
             {articles.length === 0 ? (
