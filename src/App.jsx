@@ -15,6 +15,8 @@ export default function App() {
         url.searchParams.set("apiKey", API_KEY);
         url.searchParams.set("country", "us");
 
+        console.log(url);
+
         fetch(url.toString())
             .then((res) => {
                 if (!res.ok) throw new Error(`HTTP ${res.status}`);
