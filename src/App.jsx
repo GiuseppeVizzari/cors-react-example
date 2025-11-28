@@ -31,7 +31,9 @@ export default function App() {
 
         // Cloudflare Worker proxy call - should work on GitHub Pages
         const proxyUrl = new URL(
-            "https://soft-cake-cb40.giuseppe-vizzari.workers.dev/"
+            "https://plain-tooth-5b59.giuseppe-vizzari.workers.dev/"
+            // older proxy not working
+            // "https://soft-cake-cb40.giuseppe-vizzari.workers.dev/"
         );
 
         proxyUrl.searchParams.set("url", "https://newsapi.org/v2/top-headlines");
