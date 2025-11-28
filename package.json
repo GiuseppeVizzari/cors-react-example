@@ -8,8 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "predeploy": "vite build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "./deploy.sh",
+    "deploy:direct": "gh-pages -d dist"
   },
   "dependencies": {
     "react": "^19.2.0",
