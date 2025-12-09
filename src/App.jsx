@@ -57,7 +57,8 @@ export default function App() {
 
     return (
         <div style={{ padding: "2rem" }}>
-            <h1>NewsAPI CORS Demo</h1>
+            <h1>NewsAPI Demo</h1>
+            <h2>Highlights CORS error issue and management</h2>
             {directCallError && (
                 <pre style={{ color: "red" }}>
                     ❌ Direct call error: {directCallError}
